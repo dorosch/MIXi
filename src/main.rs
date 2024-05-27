@@ -34,7 +34,7 @@ trait Data<T> {
   fn split_modifier(modifier: u32) -> (u32, u32) {
     let (left, right) = (modifier / 10, modifier % 10);
 
-    assert!(left <= right && right <= 5);
+    assert!(left <= right);
 
     (left, right)
   }

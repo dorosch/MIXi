@@ -43,7 +43,7 @@ impl Computer {
 
   pub fn load(&mut self, program: Program) {
     for (index, instruction) in program.instructions.iter().enumerate() {
-      self.memory[index] = Word::new(instruction.pack());
+      self.memory[index] = Word::new(instruction.pack(), None);
     }
   }
 
@@ -55,8 +55,8 @@ impl Computer {
         0 => continue,
         8 => {
           let word = self.memory[instruction.address as usize];
-          self.a = word.read_part(instruction.modifier);
-        },
+          // self.a = word.read_part(instruction.modifier);
+        }
         _ => unimplemented!("Unknown command"),
       }
     }
