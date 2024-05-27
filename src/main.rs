@@ -19,11 +19,25 @@ trait Data<T> {
   /// Reads the value without the sign
   fn read_data(&self) -> T;
 
+  /// Reads the value by modifier
+  fn read_with_modifier(&self, modifier: T) -> T;
+
   /// Writes the value, including the sign
   fn write(&mut self, number: T, sign: bool);
 
   /// Writes the value, without the sign
   fn write_data(&mut self, number: T);
+
+  fn get_byte(&self, index: usize) -> u8;
+
+  /// Get left and right parts from modifier
+  fn split_modifier(modifier: u32) -> (u32, u32) {
+    let (left, right) = (modifier / 10, modifier % 10);
+
+    assert!(left <= right && right <= 5);
+
+    (left, right)
+  }
 }
 
 /// Trait for reading and writing the sign
@@ -48,4 +62,22 @@ fn main() {
   computer.execute();
 
   println!("{}", computer);
+}
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+  use rstest_reuse::{self, *};
+
+  #[template]
+  #[rstest]
+  #[case(0, (0, 0))]
+  #[case(1, (0, 1))]
+  #[case(5, (0, 5))]
+  #[case(13, (1, 3))]
+  #[case(15, (1, 5))]
+  #[case(24, (2, 4))]
+  #[case(45, (4, 5))]
+  #[case(55, (5, 5))]
+  fn split_modifier_cases(#[case] modifier: u32, #[case] expected: (u32, u32)) {}
 }

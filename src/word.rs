@@ -56,6 +56,10 @@ impl Data<u32> for Word {
     todo!("Unimplemented")
   }
 
+  fn read_with_modifier(&self, modifier: u32) -> u32 {
+    1
+  }
+
   fn write(&mut self, number: u32, sign: bool) {
     // TODO: Use sign
     self.data = number & Self::MASK;
@@ -63,6 +67,12 @@ impl Data<u32> for Word {
 
   fn write_data(&mut self, number: u32) {
     self.data = number & Self::MASK;
+  }
+
+  fn get_byte(&self, index: usize) -> u8 {
+    assert!(index <= 2);
+
+    ((self.data >> (6 * index)) & 0b111111) as u8
   }
 }
 
