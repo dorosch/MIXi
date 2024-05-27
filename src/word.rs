@@ -11,13 +11,13 @@ pub struct Word {
 impl Word {
   const BYTES: usize = 5;
 
-  /// Mask for the data portion (first 12 bits)
-  const DATA_MASK: u32 = 0b0011_1111_1111_1111_1111_1111_1111_1111;
+  #[rustfmt::skip]
+  const SIGN_MASK:  u32 = 0b0100_0000_0000_0000_0000_0000_0000_0000;
 
-  /// Mask for the sign bit (13th bit)
-  const SIGN_MASK: u32 = 0b0100_0000_0000_0000_0000_0000_0000_0000;
+  #[rustfmt::skip]
+  const DATA_MASK:  u32 = 0b0011_1111_1111_1111_1111_1111_1111_1111;
 
-  /// Mask for the value with the sign bit
+  #[rustfmt::skip]
   const VALUE_MASK: u32 = 0b0111_1111_1111_1111_1111_1111_1111_1111;
 
   pub fn new(number: u32, sign: Option<bool>) -> Self {

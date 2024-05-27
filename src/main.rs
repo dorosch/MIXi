@@ -49,20 +49,7 @@ trait Signed {
   fn write_sign(&mut self, sign: bool);
 }
 
-fn main() {
-  let mut computer = Computer::new();
-  let mut program = Program::new();
-  program.add(Instruction::new(8, 3, 2, 0, 1));
-  program.add(Instruction::new(8, 11, 2, 0, 1));
-  program.add(Instruction::new(8, 11, 0, 0, 1));
-  program.add(Instruction::new(8, 5, 0, 0, 1));
-  program.add(Instruction::new(8, 5, 4, 0, 0));
-
-  computer.load(program);
-  computer.execute();
-
-  println!("{}", computer);
-}
+fn main() {}
 
 #[cfg(test)]
 mod tests {

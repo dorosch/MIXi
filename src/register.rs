@@ -10,13 +10,13 @@ pub struct Register {
 impl Register {
   const BYTES: usize = 2;
 
-  /// Mask for the data portion (first 12 bits)
-  const DATA_MASK: u16 = 0b0000_1111_1111_1111;
+  #[rustfmt::skip]
+  const SIGN_MASK:  u16 = 0b0001_0000_0000_0000;
 
-  /// Mask for the sign bit (13th bit)
-  const SIGN_MASK: u16 = 0b0001_0000_0000_0000;
+  #[rustfmt::skip]
+  const DATA_MASK:  u16 = 0b0000_1111_1111_1111;
 
-  /// Mask for the value with the sign bit
+  #[rustfmt::skip]
   const VALUE_MASK: u16 = 0b0001_1111_1111_1111;
 
   /// Creates a new register with the given value and sign

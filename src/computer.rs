@@ -1,6 +1,12 @@
 use std::fmt;
 
-use crate::{instruction::Instruction, program::Program, register::Register, word::Word, Data};
+use crate::{
+  instruction::{Command, Instruction},
+  program::Program,
+  register::Register,
+  word::Word,
+  Data,
+};
 
 #[derive(Debug)]
 pub enum Compare {
@@ -43,22 +49,22 @@ impl Computer {
 
   pub fn load(&mut self, program: Program) {
     for (index, instruction) in program.instructions.iter().enumerate() {
-      self.memory[index] = Word::new(instruction.pack(), None);
+      // self.memory[index] = Word::new(instruction.pack(), None);
     }
   }
 
   pub fn execute(&mut self) {
     for (index, word) in self.memory.iter().enumerate() {
-      let instruction = Instruction::unpack(word.read());
+      // let instruction = Instruction::unpack(word.read());
 
-      match instruction.command {
-        0 => continue,
-        8 => {
-          let word = self.memory[instruction.address as usize];
-          // self.a = word.read_part(instruction.modifier);
-        }
-        _ => unimplemented!("Unknown command"),
-      }
+      // match instruction.command {
+      //   Command::Noop => continue,
+      //   Command::Lda => {
+      //     let word = self.memory[instruction.address as usize];
+      //     // self.a = word.read_part(instruction.modifier);
+      //   }
+      //   _ => unimplemented!("Unknown command"),
+      // }
     }
   }
 }
