@@ -8,7 +8,7 @@ mod word;
 use rstest_reuse;
 
 use computer::Computer;
-use instruction::Instruction;
+use instruction::{Command, Instruction};
 use program::Program;
 
 /// Trait for reading and writing data
@@ -49,7 +49,16 @@ trait Signed {
   fn write_sign(&mut self, sign: bool);
 }
 
-fn main() {}
+fn main() {
+  let mut computer = Computer::new();
+  let mut program = Program::new();
+
+  program.add(Instruction::new(true, 0, 0, 5, Command::Lda));
+
+  computer.execute(program);
+
+  println!("{}", computer);
+}
 
 #[cfg(test)]
 mod tests {

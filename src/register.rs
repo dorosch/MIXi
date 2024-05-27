@@ -19,7 +19,6 @@ impl Register {
   #[rustfmt::skip]
   const VALUE_MASK: u16 = 0b0001_1111_1111_1111;
 
-  /// Creates a new register with the given value and sign
   pub fn new(number: u16, sign: Option<bool>) -> Self {
     let mut data = number & Self::DATA_MASK;
 

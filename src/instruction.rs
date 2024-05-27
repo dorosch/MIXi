@@ -25,7 +25,7 @@ impl From<Command> for u32 {
   }
 }
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, Eq, PartialEq)]
 pub struct Instruction {
   pub sign: bool,
   pub address: u32,
@@ -88,6 +88,13 @@ impl From<Instruction> for Word {
     let sign = Some(value.sign);
 
     Word::new(u32::from(value), sign)
+  }
+}
+
+// TODO: Add tests
+impl From<&Instruction> for Word {
+  fn from(value: &Instruction) -> Self {
+    Word::from(*value)
   }
 }
 

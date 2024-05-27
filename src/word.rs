@@ -3,7 +3,7 @@ use std::fmt;
 use crate::{Data, Signed};
 
 /// Represents a word with a 30-bit value and a sign bit
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Word {
   data: u32,
 }
@@ -36,6 +36,14 @@ impl Word {
 impl Default for Word {
   fn default() -> Self {
     Self::new(0, None)
+  }
+}
+
+impl From<u32> for Word {
+  fn from(value: u32) -> Self {
+    Self {
+      data: value & Word::VALUE_MASK,
+    }
   }
 }
 
@@ -214,6 +222,11 @@ mod tests {
   fn test_default() {
     assert!(!Word::default().read_sign());
     assert_eq!(Word::default().read_data(), 0);
+  }
+
+  #[apply(data_with_sign_cases)]
+  fn test_word_from_u32(number: u32, expected: u32, sign: bool) {
+    assert_eq!(Word::from(expected), Word::new(number, Some(sign)));
   }
 
   #[apply(data_with_sign_cases)]
